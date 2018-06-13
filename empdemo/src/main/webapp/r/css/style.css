@@ -1,0 +1,21 @@
+.table tbody tr td{
+    vertical-align:middle;
+}
+.head{
+    background-color:rgba(72, 153, 218, 1);
+    height:94px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+.foot{
+    background-color:rgba(72, 153, 218, 1);
+    height:64px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
+.pagination{
+    margin:0;
+}
+.body{
+    margin:65px 0;
+}

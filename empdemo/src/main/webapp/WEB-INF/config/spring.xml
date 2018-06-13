@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--配置spring的自动扫包-->
+    <context:component-scan base-package="com.neuedu"/>
+
+    <!--整合mybaatis开始-->
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/empdemo_ssm?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
+    <!--整合mybaatis结束 -->
+
+    <!--整合SqlSessionFactoryBean开始-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="WEB-INF/config/myBatis.xml"/>
+    </bean>
+    <!--整合SqlSessionFactoryBean结束-->
+
+    <!--整合mapper扫描器开始-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.neuedu.mapper"/>
+    </bean>
+    <!--整合mapper扫描器结束-->
+
+    <!--配置事务开始-->
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置事务通知-->
+    <tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--使用aop将事务管理器切入到业务层-->
+    <aop:config>
+        <aop:pointcut id="service" expression="execution(* com.neuedu.service..*.*(..))"/>
+    </aop:config>
+    <!--配置事务结束-->
+
+</beans>
