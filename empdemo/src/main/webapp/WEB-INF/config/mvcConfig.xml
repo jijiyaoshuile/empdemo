@@ -9,7 +9,6 @@
 
     <!--配置mvc的自动扫包-->
     <context:component-scan base-package="com.neuedu.controller"/>
-
     <!--配置试图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>

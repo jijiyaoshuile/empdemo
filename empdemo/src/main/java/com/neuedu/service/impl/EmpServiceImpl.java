@@ -24,7 +24,6 @@ public class EmpServiceImpl implements EmpService{
         return empMapper.getEmpById(id);
     }
 
-
     @Override
     public int deleteEmpByIds(int[] ids) {
         return empMapper.deleteEmpByIds(ids);
@@ -33,7 +32,9 @@ public class EmpServiceImpl implements EmpService{
     @Override
     public int saveEmp(Emp emp) {
         empMapper.saveEmp(emp);
+        //所有员工的个数
         int pageNum = empMapper.getCount();
+        //最后一页的页码
         return pageNum % 10 == 0 ? pageNum / 10:pageNum / 10 + 1;
     }
 
