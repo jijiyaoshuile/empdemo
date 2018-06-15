@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>login</title>
 </head>
 <body>
-    <jsp:forward page="/emp/emplist"></jsp:forward>
+    登录
 </body>
 </html>

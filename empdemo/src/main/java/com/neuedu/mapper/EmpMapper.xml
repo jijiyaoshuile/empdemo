@@ -35,6 +35,13 @@
         </foreach>
     </delete>
 
+    <delete id="deleteEmpByDeptid">
+        delete from e_emp where dept_id in
+        <foreach collection="array" item="dept_id" separator="," open="(" close=")">
+            #{dept_id}
+        </foreach>
+    </delete>
+
     <insert id="saveEmp">
         insert into e_emp(name,phone,sex,salary,dept_id) values(#{emp.name},#{emp.phone},#{emp.sex},#{emp.salary},#{emp.dept_id})
     </insert>

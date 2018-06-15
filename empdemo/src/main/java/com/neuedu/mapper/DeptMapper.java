@@ -11,4 +11,12 @@ public interface DeptMapper {
      * @return
      */
     List<Dept> listDept();
+
+    /**
+     * 根据Id数组删除dept
+     * @param ids
+     * @return 影响行数
+     */
+    int deleteDeptById(int[] ids);
+
 }

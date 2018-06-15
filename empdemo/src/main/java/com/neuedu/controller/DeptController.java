@@ -31,9 +31,15 @@ public class DeptController {
         System.out.println(pageInfo);
         param.put("pageInfo",pageInfo);
         httpSession.setAttribute("deptPageNum",pageInfo.getPageNum());
-
-
         return "deptlist";
     }
+
+    @RequestMapping(value = {"/deleteDeptById"})
+    public String deleteDeptById(int[] id,HttpSession httpSession){
+        deptService.deleteDeptById(id);
+        Integer pageNum = (Integer) httpSession.getAttribute("deptPageNum");
+        return "redirect:/dept/deptlist?pageNum=" + pageNum;
+    }
+
 
 }

@@ -138,8 +138,13 @@
                     ids[ids.length] = id;
                 }
             });
-            var path = "${pageContext.request.contextPath}/emp/deleteEmpById?id=" + ids;
-            location.href = path;
+            if(ids.length != 0){
+                var path = "${pageContext.request.contextPath}/emp/deleteEmpById?id=" + ids;
+                location.href = path;
+            }else{
+                location.href = "${pageContext.request.contextPath}/emp/emplist?pageNum=" + ${pageInfo.pageNum};
+            }
+
         });
         //增加员工
         $(".addEmp").click(function () {
