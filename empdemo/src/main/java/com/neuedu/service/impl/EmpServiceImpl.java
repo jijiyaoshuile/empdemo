@@ -35,7 +35,7 @@ public class EmpServiceImpl implements EmpService{
         //所有员工的个数
         int pageNum = empMapper.getCount();
         //最后一页的页码
-        return pageNum % 10 == 0 ? pageNum / 10:pageNum / 10 + 1;
+        return pageNum % 10 == 0 ? pageNum / 10 : pageNum / 10 + 1;
     }
 
     @Override

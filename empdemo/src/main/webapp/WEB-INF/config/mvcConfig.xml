@@ -18,13 +18,25 @@
     <mvc:annotation-driven/>
     <!--配置静态资源文件的释放-->
     <mvc:resources mapping="/r/**" location="/r/"/>
+    <mvc:resources mapping="/upload/**" location="/upload/"/>
 
-    <!--配置文件长传的支持-->
+    <!--配置文件上传的支持-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="maxUploadSize" value="1048576"/>
         <!--最大临时内存-->
         <property name="maxInMemorySize" value="1048576"/>
     </bean>
-</beans>
 
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--配置拦截器要拦截哪些请求-->
+            <mvc:mapping path="/**"/>
+            <!--配置拦截器要排除的请求-->
+            <mvc:exclude-mapping path="/user/**"/>
+            <!--告诉spring拦截器的类是哪个-->
+            <bean class="com.neuedu.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

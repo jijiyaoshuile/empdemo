@@ -46,7 +46,6 @@
       <artifactId>pagehelper</artifactId>
       <version>5.1.2</version>
     </dependency>
-
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
@@ -83,8 +82,6 @@
       <artifactId>commons-fileupload</artifactId>
       <version>1.3.1</version>
     </dependency>
-
-
   </dependencies>
 
   <build>

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,6 +54,7 @@ public class UserController {
         String fileName = headimg.getOriginalFilename();
         String filePath = uploadPath + UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
         File file = new File(filePath);
+        //效率一般
         headimg.transferTo(file);
         //3.获得需要存储到数据库中的路径
         String imgPath = filePath.substring(filePath.lastIndexOf("\\upload"));
@@ -61,12 +64,28 @@ public class UserController {
         user.setPassword(password);
         user.setHeadimg(imgPath);
         userService.saveUser(user);
-
         return "redirect:/user/loginView";
     }
 
     @RequestMapping(value = {"/loginView"})
     public String loginView(){
         return "login";
+    }
+
+    @RequestMapping(value = {"/login"})
+    public void login(String username, String password, HttpServletResponse response, HttpSession httpSession) throws IOException {
+        User user = userService.getUserByUsername(username);
+        PrintWriter out = response.getWriter();
+        if(user != null && user.getPassword().equals(password)){
+            //登陆成功将用户存到session中
+            httpSession.setAttribute("user",user);
+            Cookie cookie = new Cookie("username",user.getUsername());
+            cookie.setPath("/empdemo");
+            cookie.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie);
+            out.print(true);
+        }else{
+            out.print(false);
+        }
     }
 }
